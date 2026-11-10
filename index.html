@@ -231,7 +231,7 @@ body{padding-top:var(--navh)}
 <button class="px" id="nav-deck" role="tab" aria-selected="true" type="button">Diapositivas</button><button class="px" id="nav-dash" role="tab" aria-selected="false" type="button">Dashboard</button></div></nav>
 <div class="wrap">
 <section id="view-deck" aria-label="Diapositivas"><div class="stage" id="stage"></div>
-<div class="dock"><div class="prog"><i id="prog"></i></div><button class="px" id="menuBtn" type="button" aria-label="Índice">Índice</button><button class="px" id="prev" type="button" aria-label="Anterior">◀</button><button class="px" id="mode" type="button" aria-pressed="true" title="Express salta las diapositivas de apoyo">Express</button><span class="cnt" id="cnt">01 / 00</span><button class="px" id="next" type="button" aria-label="Siguiente">▶</button><span class="sec" id="dsec"></span></div>
+<div class="dock"><div class="prog"><i id="prog"></i></div><button class="px" id="menuBtn" type="button" aria-label="Índice">Índice</button><button class="px" id="prev" type="button" aria-label="Anterior">◀</button><button class="px" id="mode" type="button" aria-pressed="true" title="Express salta las diapositivas de apoyo">Express</button><button class="px" id="fs" type="button" aria-label="Pantalla completa" title="Pantalla completa (F)">⛶</button><span class="cnt" id="cnt">01 / 00</span><button class="px" id="next" type="button" aria-label="Siguiente">▶</button><span class="sec" id="dsec"></span></div>
 <div class="menu2" id="menu2" hidden></div></section>
 <div id="view-dash" hidden>
 <header class="hero">
@@ -1029,6 +1029,9 @@ const go=d=>show(cur+d);
 $('#prev').onclick=()=>go(-1);$('#next').onclick=()=>go(1);
 function buildMenu(){let h='',last='';S.forEach((sl,i)=>{if(sl.s!==last){h+=(last?'</div>':'')+`<h3>${sl.s}</h3><div class="gr">`;last=sl.s}h+=`<button class="px" data-i="${i}">${String(i+1).padStart(2,'0')} · ${(sl.k||sl.h||'Portada').replace(/\*/g,'').slice(0,34)}</button>`});
   $('#menu2').innerHTML=h+'</div>';$('#menu2').querySelectorAll('button').forEach(b=>b.onclick=()=>{show(+b.dataset.i);$('#menu2').hidden=true})}
+function toggleFS(){const d=document,r=d.documentElement;try{if(d.fullscreenElement||d.webkitFullscreenElement){(d.exitFullscreen||d.webkitExitFullscreen).call(d)}else{const f=r.requestFullscreen||r.webkitRequestFullscreen;const p=f&&f.call(r);if(p&&p.catch)p.catch(()=>{})}}catch(_){}}
+$('#fs').onclick=toggleFS;
+['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>{const on=!!(document.fullscreenElement||document.webkitFullscreenElement);$('#fs').textContent=on?'✕':'⛶';$('#fs').title=on?'Salir de pantalla completa (F)':'Pantalla completa (F)'}));
 $('#mode').onclick=()=>setMode(!express,true);
 $('#menuBtn').onclick=()=>{$('#menu2').hidden=!$('#menu2').hidden};
 /* teclado y gestos */
@@ -1038,7 +1041,7 @@ addEventListener('keydown',e=>{if($('#view-deck').hidden)return;
   else if(e.key==='Home')show(0);else if(e.key==='End')show(S.length-1);
   else if(e.key==='m'||e.key==='M')$('#menu2').hidden=!$('#menu2').hidden;
   else if(e.key==='Escape')$('#menu2').hidden=true;
-  else if(e.key==='f'||e.key==='F'){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(_){}}});
+  else if(e.key==='f'||e.key==='F'){toggleFS()}});
 let tx=null;stage.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 stage.addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)go(dx<0?1:-1);tx=null});
 let rz;addEventListener('resize',()=>{if($('#view-deck').hidden)return;clearTimeout(rz);rz=setTimeout(drawChart,150)});
