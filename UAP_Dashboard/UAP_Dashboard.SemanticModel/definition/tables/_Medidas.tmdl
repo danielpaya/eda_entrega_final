@@ -1,0 +1,110 @@
+table _Medidas
+	lineageTag: 4ac92aab-e6cb-4279-a48e-0040d45613a2
+
+	measure '01 Total reportes' = COUNTROWS ( fact_reportes )
+		formatString: #,0
+		lineageTag: 4cb00498-0ce0-4f08-9066-38fa0552c39d
+
+	measure '02 Mediana duración (min)' = CALCULATE ( MEDIAN ( fact_reportes[duracion_min] ), fact_reportes[duracion_imputada] = 0 )
+		formatString: 0.0
+		lineageTag: 26501275-060e-4290-9cbd-e30a31be454f
+
+	measure '03 % nocturnos' = DIVIDE ( CALCULATE ( [01 Total reportes], fact_reportes[franja_dia] = "Noche (18–23)" ), [01 Total reportes] )
+		formatString: 0.0%
+		lineageTag: b0961f92-ddd9-4e65-9fd5-7aafe23da052
+
+	measure '04 Reportes año anterior' = CALCULATE ( [01 Total reportes], SAMEPERIODLASTYEAR ( dim_calendario[Fecha] ) )
+		formatString: #,0
+		lineageTag: d8ecc731-5249-4a8e-a08e-06807065fae9
+
+	measure '05 Variación interanual' = DIVIDE ( [01 Total reportes] - [04 Reportes año anterior], [04 Reportes año anterior] )
+		formatString: 0.0%
+		lineageTag: c3aee9ba-6113-473f-bb05-9e08e2fddac6
+
+	measure '06 Promedio mensual' = AVERAGEX ( VALUES ( dim_calendario[AñoMes] ), [01 Total reportes] )
+		formatString: #,0
+		lineageTag: b93e4334-8ed7-4757-bccc-c9feb925fe76
+
+	measure '07 % fin de semana' = DIVIDE ( CALCULATE ( [01 Total reportes], fact_reportes[fin_de_semana] = 1 ), [01 Total reportes] )
+		formatString: 0.0%
+		lineageTag: 2366ef5a-bba3-42f5-a3ab-ac30629642e2
+
+	measure '08 Reportes festivos pirotecnia' = CALCULATE ( [01 Total reportes], fact_reportes[festivo_pirotecnia] = 1 )
+		formatString: #,0
+		lineageTag: a7b7d03d-6a66-4316-b32b-720fad32ffab
+
+	measure '09 Días festivos pirotecnia' = CALCULATE ( DISTINCTCOUNT ( fact_reportes[fecha] ), fact_reportes[festivo_pirotecnia] = 1 )
+		formatString: 0
+		lineageTag: bbfda85c-f3af-46d6-affa-2637b9b73f3a
+
+	measure '10 Mediana diaria día normal' = CALCULATE ( MEDIANX ( VALUES ( fact_reportes[fecha] ), [01 Total reportes] ), fact_reportes[festivo_pirotecnia] = 0 )
+		formatString: 0.0
+		lineageTag: 41e6bad5-bced-4adc-9879-1a15b80c85db
+
+	measure '11 Multiplicador festivos' = DIVIDE ( CALCULATE ( MEDIANX ( VALUES ( fact_reportes[fecha] ), [01 Total reportes] ), fact_reportes[festivo_pirotecnia] = 1 ), [10 Mediana diaria día normal] )
+		formatString: 0.0"×"
+		lineageTag: d51e9c97-8aea-4361-b2bc-b29bafced4b5
+
+	measure '12 % fuera de EE. UU.' = DIVIDE ( CALCULATE ( [01 Total reportes], fact_reportes[pais] <> "USA" ), [01 Total reportes] )
+		formatString: 0.0%
+		lineageTag: 1ef34c64-f931-426f-a18d-39eafe2f2dbd
+
+	measure '13 Países distintos' = DISTINCTCOUNT ( fact_reportes[pais] )
+		formatString: 0
+		lineageTag: 789bb6fa-8ac5-4478-8ff6-5411bf043f33
+
+	measure '14 % duración imputada' = DIVIDE ( CALCULATE ( [01 Total reportes], fact_reportes[duracion_imputada] = 1 ), [01 Total reportes] )
+		formatString: 0.0%
+		lineageTag: ea76273f-d594-4445-b195-f0487586d4ba
+
+	measure '15 % posibles duplicados' = DIVIDE ( CALCULATE ( [01 Total reportes], fact_reportes[posible_duplicado] = 1 ), [01 Total reportes] )
+		formatString: 0.0%
+		lineageTag: db398eb1-084a-4d27-9c36-962b3bd99320
+
+	measure '16 Real prueba (mensual)' = CALCULATE ( SUM ( fact_pronostico[real] ), fact_pronostico[granularidad] = "Mensual", fact_pronostico[conjunto] = "Prueba", fact_pronostico[modelo] = "Holt-Winters" )
+		formatString: #,0
+		lineageTag: eda48565-216a-4d8c-867b-69e1946b1f8b
+
+	measure '17 Pronóstico Holt-Winters' = CALCULATE ( SUM ( fact_pronostico[pronostico] ), fact_pronostico[granularidad] = "Mensual", fact_pronostico[conjunto] IN { "Prueba", "Futuro" }, fact_pronostico[modelo] = "Holt-Winters" )
+		formatString: #,0
+		lineageTag: 875e198b-475d-4f26-808f-1d91ef807321
+
+	measure '18 MAE' = CALCULATE ( AVERAGEX ( VALUES ( fact_pronostico[fecha] ), ABS ( [16 Real prueba (mensual)] - [17 Pronóstico Holt-Winters] ) ), fact_pronostico[conjunto] = "Prueba" )
+		formatString: 0.00
+		lineageTag: 2233f67c-deae-4206-a061-7dfc4afb3e1c
+
+	measure '19 MAPE' = CALCULATE ( AVERAGEX ( VALUES ( fact_pronostico[fecha] ), DIVIDE ( ABS ( [16 Real prueba (mensual)] - [17 Pronóstico Holt-Winters] ), [16 Real prueba (mensual)] ) ), fact_pronostico[conjunto] = "Prueba" ) * 100
+		formatString: 0.00"%"
+		lineageTag: ab59df01-c014-4a83-a23e-4d5f7a8754f2
+
+	measure '20 MAE ingenuo' = CALCULATE ( AVERAGEX ( VALUES ( fact_pronostico[fecha] ), ABS ( [16 Real prueba (mensual)] - CALCULATE ( SUM ( fact_pronostico[pronostico] ), fact_pronostico[modelo] = "Ingenuo estacional" ) ) ), fact_pronostico[conjunto] = "Prueba" )
+		formatString: 0.00
+		lineageTag: 9ec7ce7c-7a79-46e0-a0dc-e9c144c0ff77
+
+	measure '21 Mejora vs ingenuo (%)' = DIVIDE ( [20 MAE ingenuo] - [18 MAE], [20 MAE ingenuo] ) * 100
+		formatString: 0.00"%"
+		lineageTag: d2563343-e237-42fb-b6a1-7a5ec9d82953
+
+	measure '22 Cobertura IC 95 %' =
+			VAR t = FILTER ( fact_pronostico, fact_pronostico[granularidad] = "Mensual" && fact_pronostico[conjunto] = "Prueba" && fact_pronostico[modelo] = "Holt-Winters" )
+			RETURN DIVIDE ( COUNTROWS ( FILTER ( t, fact_pronostico[real] >= fact_pronostico[li_95] && fact_pronostico[real] <= fact_pronostico[ls_95] ) ), COUNTROWS ( t ) )
+		formatString: 0%
+		lineageTag: 1be912e9-d204-40ac-a69e-43f6ff6a6216
+
+	column Col
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ec8f1a8f-0bae-4488-956c-da1bfc9a01df
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Col]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Medidas = calculated
+		mode: import
+		source = DATATABLE ( "Col", INTEGER, { { 1 } } )
+
+	annotation PBI_Id = measures
+

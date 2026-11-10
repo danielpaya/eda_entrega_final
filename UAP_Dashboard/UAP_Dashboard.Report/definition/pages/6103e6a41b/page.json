@@ -1,0 +1,49 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.0.0/schema.json",
+  "name": "6103e6a41b",
+  "displayName": "Tooltip formas",
+  "displayOption": "FitToPage",
+  "height": 220,
+  "width": 320,
+  "type": "Tooltip",
+  "visibility": "HiddenInViewMode",
+  "pageBinding": {
+    "name": "tt_pb",
+    "type": "Tooltip",
+    "parameters": [
+      {
+        "name": "tt_p1",
+        "boundFilter": "tt_f1",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_forma"
+              }
+            },
+            "Property": "forma_es"
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "tt_f1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_forma"
+              }
+            },
+            "Property": "forma_es"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drill"
+      }
+    ]
+  }
+}

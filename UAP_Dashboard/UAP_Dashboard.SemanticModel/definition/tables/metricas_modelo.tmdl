@@ -1,0 +1,104 @@
+table metricas_modelo
+	lineageTag: 38d110cf-c77f-4e60-a363-99a6c42b61a2
+
+	column granularidad
+		dataType: string
+		lineageTag: e7972f0b-f5c6-4dcf-b9f9-a94a7a761386
+		summarizeBy: none
+		sourceColumn: granularidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelo
+		dataType: string
+		lineageTag: fa852e13-aff2-4c21-b99d-3b569019e987
+		summarizeBy: none
+		sourceColumn: modelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column MAE
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 831671a7-a9f8-4e03-96e6-cee44bb9dbb7
+		summarizeBy: sum
+		sourceColumn: MAE
+
+		annotation SummarizationSetBy = Automatic
+
+	column RMSE
+		dataType: double
+		formatString: #,0.00
+		lineageTag: d7b1814e-6f2b-43e5-9389-f299435ac86c
+		summarizeBy: sum
+		sourceColumn: RMSE
+
+		annotation SummarizationSetBy = Automatic
+
+	column MAPE
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 465e3db5-329e-4d01-8934-37c422cede1b
+		summarizeBy: sum
+		sourceColumn: MAPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column mejora_MAE_vs_ingenuo_pct
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 35a09299-7ab5-47ac-9441-a0572a974d63
+		summarizeBy: sum
+		sourceColumn: mejora_MAE_vs_ingenuo_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column principal
+		dataType: int64
+		formatString: 0
+		lineageTag: f1763e1a-a5c5-4003-9474-c3702e740290
+		summarizeBy: none
+		sourceColumn: principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column cumple_CE1_MAPE
+		dataType: int64
+		formatString: 0
+		lineageTag: 98c73f72-3c85-42c9-9a28-cd50284e8d29
+		summarizeBy: none
+		sourceColumn: cumple_CE1_MAPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column cumple_CE2_MAE
+		dataType: int64
+		formatString: 0
+		lineageTag: 71717397-a8c3-4a94-9af1-cabb0d1d4541
+		summarizeBy: none
+		sourceColumn: cumple_CE2_MAE
+
+		annotation SummarizationSetBy = Automatic
+
+	column ljung_box_p12
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c7b26132-eb07-48f2-9496-b8821f79e278
+		summarizeBy: sum
+		sourceColumn: ljung_box_p12
+
+		annotation SummarizationSetBy = Automatic
+
+	partition metricas_modelo = m
+		mode: import
+		source =
+				let
+				    Ruta = "C:\Users\usuario\Documents\Universidad\sexto semestre\eda\PowerBI_kit\data\",
+				    Origen = Csv.Document(File.Contents(Ruta & "metricas_modelo.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Encab = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    Tipos = Table.TransformColumnTypes(Encab, {{"granularidad", type text}, {"modelo", type text}, {"MAE", type number}, {"RMSE", type number}, {"MAPE", type number}, {"mejora_MAE_vs_ingenuo_pct", type number}, {"principal", Int64.Type}, {"cumple_CE1_MAPE", Int64.Type}, {"cumple_CE2_MAE", Int64.Type}, {"ljung_box_p12", type number}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
+

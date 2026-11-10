@@ -1,0 +1,314 @@
+table fact_reportes
+	lineageTag: e577f630-a9a7-4df0-a331-d74705b27bf2
+
+	column id
+		dataType: string
+		isHidden
+		lineageTag: 298db4b5-05f2-4c09-855a-b69f783754a4
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_hora
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 10a7c4ce-067a-4562-a939-a4cdf6592bf4
+		summarizeBy: none
+		sourceColumn: fecha_hora
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d45345e2-2b66-4099-95dc-2241a499366b
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column hora_conocida
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5313124a-892e-4746-9714-f232d849b3ed
+		summarizeBy: none
+		sourceColumn: hora_conocida
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: cbfb8aac-bc43-48ab-8fac-7f221f49cdf7
+		summarizeBy: none
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7c93614f-ed3f-45c1-90c6-99b9243d2b17
+		summarizeBy: none
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana_num
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3c6aa567-d359-485b-af08-7d5c7a7d5adf
+		summarizeBy: none
+		sourceColumn: dia_semana_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana
+		dataType: string
+		isHidden
+		lineageTag: b53abbd6-6504-4a94-95b1-e30391e00626
+		summarizeBy: none
+		sourceColumn: dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column hora
+		dataType: int64
+		formatString: 0
+		lineageTag: cca46cdc-9eaa-4248-b55e-2eab117d27b2
+		summarizeBy: none
+		sourceColumn: hora
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_de_semana
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0c287fac-01ed-4f22-a49a-3b341dae620f
+		summarizeBy: none
+		sourceColumn: fin_de_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column franja_dia
+		dataType: string
+		lineageTag: 8b666487-1932-4090-ae08-02b4ab15ca04
+		summarizeBy: none
+		sourceColumn: franja_dia
+		sortByColumn: franja_orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column festivo_pirotecnia
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8f6142f0-d422-4475-98ea-ceef5f95c4b8
+		summarizeBy: none
+		sourceColumn: festivo_pirotecnia
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 1978ac4c-1afd-46ac-bd05-6577d02a847e
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: lat
+
+		annotation SummarizationSetBy = Automatic
+
+	column lng
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 32c2fec6-ca9c-4584-b984-55ebaae5a496
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: lng
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais
+		dataType: string
+		lineageTag: c4209bcf-dd45-4459-b7da-d11703addc93
+		summarizeBy: none
+		sourceColumn: pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais_imputado
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4a7d2c26-d108-4c96-98b5-55bfed5e00db
+		summarizeBy: none
+		sourceColumn: pais_imputado
+
+		annotation SummarizationSetBy = Automatic
+
+	column forma_reportada
+		dataType: string
+		isHidden
+		lineageTag: 2b20b23a-3c78-4795-bf6d-1a6804397ad6
+		summarizeBy: none
+		sourceColumn: forma_reportada
+
+		annotation SummarizationSetBy = Automatic
+
+	column forma
+		dataType: string
+		lineageTag: cc616027-d458-4c3d-ac23-e0e994dfcff4
+		summarizeBy: none
+		sourceColumn: forma
+
+		annotation SummarizationSetBy = Automatic
+
+	column grupo_forma
+		dataType: string
+		lineageTag: d3468cfd-9d4a-4a5e-a2db-22df5adb8120
+		summarizeBy: none
+		sourceColumn: grupo_forma
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_seg_reportada
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 66d8a854-62b7-422c-bed2-8f03baf363dc
+		summarizeBy: none
+		sourceColumn: duracion_seg_reportada
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_seg
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 92a60c7f-c7ef-49a3-9bb4-12c426829e28
+		summarizeBy: none
+		sourceColumn: duracion_seg
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_imputada
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: aefa597f-f3ae-4cce-a8cc-ce80211f3b3b
+		summarizeBy: none
+		sourceColumn: duracion_imputada
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_atipica
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 67ae1c15-822d-4c18-8e24-1f4eb86a73a0
+		summarizeBy: none
+		sourceColumn: duracion_atipica
+
+		annotation SummarizationSetBy = Automatic
+
+	column log_duracion
+		dataType: double
+		isHidden
+		formatString: #,0.00
+		lineageTag: 41555ad9-43a2-486e-bf98-b4961d4aad29
+		summarizeBy: none
+		sourceColumn: log_duracion
+
+		annotation SummarizationSetBy = Automatic
+
+	column rango_duracion
+		dataType: string
+		lineageTag: 572959b0-8ef8-45ba-bc40-aef56722b34b
+		summarizeBy: none
+		sourceColumn: rango_duracion
+		sortByColumn: rango_duracion_orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column rango_duracion_orden
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d2f595a3-2491-42a7-bc5a-cd1dae710dd7
+		summarizeBy: none
+		sourceColumn: rango_duracion_orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column posible_duplicado
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c1e2885c-91c3-4792-905a-b29082c68a38
+		summarizeBy: none
+		sourceColumn: posible_duplicado
+
+		annotation SummarizationSetBy = Automatic
+
+	column cluster_geo
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 03a46e44-b128-41f4-a2b0-73543787bf0b
+		summarizeBy: none
+		sourceColumn: cluster_geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracion_min
+		dataType: double
+		formatString: #,0.00
+		lineageTag: dea6a31b-b99d-4367-9594-2e390d6d7812
+		summarizeBy: none
+		sourceColumn: duracion_min
+
+		annotation SummarizationSetBy = Automatic
+
+	column franja_orden
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e304e3a2-5310-46df-9a28-091a45527224
+		summarizeBy: none
+		sourceColumn: franja_orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column festivo_etiqueta
+		dataType: string
+		lineageTag: 64ef2a37-d95a-4e4f-b905-b6bbf7680971
+		summarizeBy: none
+		sourceColumn: festivo_etiqueta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_reportes = m
+		mode: import
+		source =
+				let
+				    Ruta = "C:\Users\usuario\Documents\Universidad\sexto semestre\eda\PowerBI_kit\data\",
+				    Origen = Csv.Document(File.Contents(Ruta & "uap_procesado.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Encab = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    Tipos = Table.TransformColumnTypes(Encab, {{"id", type text}, {"fecha_hora", type datetime}, {"fecha", type date}, {"hora_conocida", Int64.Type}, {"anio", Int64.Type}, {"mes", Int64.Type}, {"dia_semana_num", Int64.Type}, {"dia_semana", type text}, {"hora", Int64.Type}, {"fin_de_semana", Int64.Type}, {"franja_dia", type text}, {"festivo_pirotecnia", Int64.Type}, {"lat", type number}, {"lng", type number}, {"pais", type text}, {"pais_imputado", Int64.Type}, {"forma_reportada", type text}, {"forma", type text}, {"grupo_forma", type text}, {"duracion_seg_reportada", type number}, {"duracion_seg", type number}, {"duracion_imputada", Int64.Type}, {"duracion_atipica", Int64.Type}, {"log_duracion", type number}, {"rango_duracion", type text}, {"rango_duracion_orden", Int64.Type}, {"posible_duplicado", Int64.Type}, {"cluster_geo", Int64.Type}}, "en-US"),
+				    DurMin = Table.AddColumn(Tipos, "duracion_min", each [duracion_seg] / 60, type number),
+				    OrdenFranja = Table.AddColumn(DurMin, "franja_orden", each if Text.StartsWith([franja_dia], "Madrugada") then 1 else if Text.StartsWith([franja_dia], "Mañana") then 2 else if Text.StartsWith([franja_dia], "Tarde") then 3 else if Text.StartsWith([franja_dia], "Noche") then 4 else 5, Int64.Type),
+				    EtiqPir = Table.AddColumn(OrdenFranja, "festivo_etiqueta", each if [festivo_pirotecnia] = 1 then "Festivo con pirotecnia" else "Día normal", type text)
+				in
+				    EtiqPir
+
+	annotation PBI_ResultType = Table
+

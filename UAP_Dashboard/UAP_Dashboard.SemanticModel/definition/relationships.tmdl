@@ -1,0 +1,16 @@
+relationship e33a62d8-7419-4068-80b5-fd47533ea198
+	fromColumn: fact_reportes.fecha
+	toColumn: dim_calendario.Fecha
+
+relationship e7c742e2-8c2f-42fa-8394-a2ea0cf63947
+	fromColumn: fact_reportes.forma
+	toColumn: dim_forma.forma
+
+relationship 330d04aa-4db0-4ce2-afb5-bf9a891c3a6e
+	fromColumn: fact_reportes.pais
+	toColumn: dim_pais.pais
+
+relationship a3562476-8d2f-4657-8655-6bb9ce98a399
+	fromColumn: fact_pronostico.fecha
+	toColumn: dim_calendario.Fecha
+

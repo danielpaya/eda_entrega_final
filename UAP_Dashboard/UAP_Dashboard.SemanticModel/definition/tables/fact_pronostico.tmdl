@@ -1,0 +1,96 @@
+table fact_pronostico
+	lineageTag: 122b97d1-a20f-4d29-a084-ecba4ed65510
+
+	column granularidad
+		dataType: string
+		lineageTag: d70cc4f4-8511-4d52-9d7c-4ca3d16f7050
+		summarizeBy: none
+		sourceColumn: granularidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column conjunto
+		dataType: string
+		lineageTag: abbc686d-a7f1-4d60-87be-b80c70cd6db9
+		summarizeBy: none
+		sourceColumn: conjunto
+
+		annotation SummarizationSetBy = Automatic
+
+	column modelo
+		dataType: string
+		lineageTag: 5d230f3f-bee9-4973-ae8a-e5bb02ef59a0
+		summarizeBy: none
+		sourceColumn: modelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4760c676-0adf-450f-b7ed-60530179202b
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column real
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 17eb50dd-d00b-4fb4-a465-e4ab96c4a31d
+		summarizeBy: sum
+		sourceColumn: real
+
+		annotation SummarizationSetBy = Automatic
+
+	column pronostico
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 18aae1b3-3b13-4e1b-bdbc-12097de7dbd6
+		summarizeBy: sum
+		sourceColumn: pronostico
+
+		annotation SummarizationSetBy = Automatic
+
+	column li_95
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 46b3db2c-1cfc-445f-9d3d-875aa9f3009d
+		summarizeBy: sum
+		sourceColumn: li_95
+
+		annotation SummarizationSetBy = Automatic
+
+	column ls_95
+		dataType: double
+		formatString: #,0.00
+		lineageTag: e233fceb-9df2-42d2-90cb-508a7c3a26eb
+		summarizeBy: sum
+		sourceColumn: ls_95
+
+		annotation SummarizationSetBy = Automatic
+
+	column es_principal
+		dataType: int64
+		formatString: 0
+		lineageTag: f62bd80a-d530-4ca1-97cd-061cb445e10b
+		summarizeBy: none
+		sourceColumn: es_principal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_pronostico = m
+		mode: import
+		source =
+				let
+				    Ruta = "C:\Users\usuario\Documents\Universidad\sexto semestre\eda\PowerBI_kit\data\",
+				    Origen = Csv.Document(File.Contents(Ruta & "fact_pronostico.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Encab = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    Tipos = Table.TransformColumnTypes(Encab, {{"granularidad", type text}, {"conjunto", type text}, {"modelo", type text}, {"fecha", type date}, {"real", type number}, {"pronostico", type number}, {"li_95", type number}, {"ls_95", type number}, {"es_principal", Int64.Type}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
+

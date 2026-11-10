@@ -1,0 +1,22 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-ES
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["fact_reportes", "fact_pronostico", "dim_forma", "dim_pais", "metricas_modelo"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fact_reportes
+ref table fact_pronostico
+ref table dim_calendario
+ref table dim_forma
+ref table dim_pais
+ref table metricas_modelo
+ref table _Medidas
+

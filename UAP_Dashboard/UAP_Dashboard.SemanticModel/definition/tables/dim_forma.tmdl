@@ -1,0 +1,51 @@
+table dim_forma
+	lineageTag: 9716110e-e758-4197-ac13-70546145e949
+
+	column forma
+		dataType: string
+		lineageTag: 3948ef36-0f78-4c17-8ebf-9e4d5ec849e1
+		summarizeBy: none
+		sourceColumn: forma
+
+		annotation SummarizationSetBy = Automatic
+
+	column forma_es
+		dataType: string
+		lineageTag: 31c5e5b8-eb43-431f-9d43-0c48e0b3653d
+		summarizeBy: none
+		sourceColumn: forma_es
+
+		annotation SummarizationSetBy = Automatic
+
+	column grupo_forma
+		dataType: string
+		lineageTag: e02b605c-9ede-4c1f-a54e-c185a1ee1fa1
+		summarizeBy: none
+		sourceColumn: grupo_forma
+		sortByColumn: grupo_orden
+
+		annotation SummarizationSetBy = Automatic
+
+	column grupo_orden
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8e18e80d-6076-402c-a645-2cb00cdf90cb
+		summarizeBy: none
+		sourceColumn: grupo_orden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_forma = m
+		mode: import
+		source =
+				let
+				    Ruta = "C:\Users\usuario\Documents\Universidad\sexto semestre\eda\PowerBI_kit\data\",
+				    Origen = Csv.Document(File.Contents(Ruta & "dim_forma.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Encab = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    Tipos = Table.TransformColumnTypes(Encab, {{"forma", type text}, {"forma_es", type text}, {"grupo_forma", type text}, {"grupo_orden", Int64.Type}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
+

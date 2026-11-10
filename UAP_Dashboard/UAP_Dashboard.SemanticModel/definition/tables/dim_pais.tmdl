@@ -1,0 +1,61 @@
+table dim_pais
+	lineageTag: c1142107-8770-489a-9dc4-8833db4dd820
+
+	column pais
+		dataType: string
+		lineageTag: 3542d6e0-c76c-4681-9ed4-04bcd37860cc
+		summarizeBy: none
+		sourceColumn: pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_pais
+		dataType: string
+		lineageTag: 268db58c-f834-459a-8c6e-91821dab50c3
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: nombre_pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: d639b3fe-5b3c-4219-b151-2597abbc6596
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat_centro
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 38bbd48b-aae2-48e5-8c6a-2b42159a4243
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: lat_centro
+
+		annotation SummarizationSetBy = Automatic
+
+	column lng_centro
+		dataType: double
+		formatString: #,0.00
+		lineageTag: 5d57a348-b8b7-431f-94e3-b666c0c43801
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: lng_centro
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_pais = m
+		mode: import
+		source =
+				let
+				    Ruta = "C:\Users\usuario\Documents\Universidad\sexto semestre\eda\PowerBI_kit\data\",
+				    Origen = Csv.Document(File.Contents(Ruta & "dim_pais.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Encab = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),
+				    Tipos = Table.TransformColumnTypes(Encab, {{"pais", type text}, {"nombre_pais", type text}, {"region", type text}, {"lat_centro", type number}, {"lng_centro", type number}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table
+
